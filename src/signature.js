@@ -180,7 +180,7 @@ Signature.sign = function(data, privateKey, encoding = 'utf8', n = 0) {
     }
     assert(Buffer.isBuffer(data), 'data is a required String or Buffer')
     data = hash.sha256(data)
-    return Signature.signHash(data, privateKey, encoding, n)
+    return Signature.signHash(data, privateKey, 'hex', n)
 }
 
 /**
