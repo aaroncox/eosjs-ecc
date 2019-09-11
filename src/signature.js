@@ -171,6 +171,7 @@ function Signature(r, s, i) {
     @arg {string|Buffer} data - full data
     @arg {wif|PrivateKey} privateKey
     @arg {String} [encoding = 'utf8'] - data encoding (if string)
+    @arg {String} n
 
     @return {Signature}
 */
