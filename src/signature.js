@@ -174,13 +174,13 @@ function Signature(r, s, i) {
 
     @return {Signature}
 */
-Signature.sign = function(data, privateKey, encoding = 'utf8') {
+Signature.sign = function(data, privateKey, encoding = 'utf8', n = 0) {
     if(typeof data === 'string') {
         data = Buffer.from(data, encoding)
     }
     assert(Buffer.isBuffer(data), 'data is a required String or Buffer')
     data = hash.sha256(data)
-    return Signature.signHash(data, privateKey)
+    return Signature.signHash(data, privateKey, encoding, n)
 }
 
 /**
@@ -192,7 +192,7 @@ Signature.sign = function(data, privateKey, encoding = 'utf8') {
 
     @return {Signature}
 */
-Signature.signHash = function(dataSha256, privateKey, encoding = 'hex') {
+Signature.signHash = function(dataSha256, privateKey, encoding = 'hex', n = 0) {
     if(typeof dataSha256 === 'string') {
         dataSha256 = Buffer.from(dataSha256, encoding)
     }
@@ -204,7 +204,7 @@ Signature.signHash = function(dataSha256, privateKey, encoding = 'hex') {
 
     var der, e, ecsignature, i, lenR, lenS, nonce;
     i = null;
-    nonce = 0;
+    nonce = n;
     e = BigInteger.fromBuffer(dataSha256);
     while (true) {
       ecsignature = ecdsa.sign(curve, dataSha256, privateKey.d, nonce++);
